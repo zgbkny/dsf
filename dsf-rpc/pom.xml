@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.taobao</groupId>
+    <groupId>org.dsf</groupId>
     <artifactId>dsf</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.taobao</groupId>
+  <groupId>org.dsf.rpc</groupId>
   <artifactId>dsf-rpc</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>dsf-rpc</name>
