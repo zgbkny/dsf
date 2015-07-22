@@ -13,9 +13,10 @@ import org.dsf.common.support.Server;
 
 
 public class RPC {
-	public static <T> T getProxy(final Class<T> clazz,String host,int port) {
+	public static <T> T getProxy(DsfConsumerBean dsfConsumerBean,String host,int port) throws ClassNotFoundException {
 		
 		final Client client = new Client(host,port);
+		final Class clazz = Class.forName(dsfConsumerBean.getInterfaceName());
 		InvocationHandler handler = new InvocationHandler() {
 			@Override
 			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -104,7 +105,13 @@ public class RPC {
 		@Override
 		public void register(DsfProviderBean dsfProviderBean) {
 			// TODO Auto-generated method stub
-			
+			try {
+				this.serviceEngine.put(dsfProviderBean.getServiceInterface(), dsfProviderBean.getTarget());
+				System.out.println(serviceEngine);
+			} catch (Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 		}
 		
 	}

@@ -9,6 +9,7 @@ public class ServerTest {
 		DsfProviderBean dsfProviderBean = new DsfProviderBean();
 		dsfProviderBean.setServiceInterface(Echo.class.getName());
 		dsfProviderBean.setTarget(new RemoteEcho());
+		dsfProviderBean.setServiceVersion("1.0.0");
 		
 		Server server =  new RPC.RPCServer();
 		server.register(dsfProviderBean);
