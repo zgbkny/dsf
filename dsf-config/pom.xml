@@ -21,6 +21,16 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>org.dsf.client</groupId>
+    	<artifactId>dsf-client</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.dsf.server</groupId>
+    	<artifactId>dsf-server</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <groupId>org.dsf.config</groupId>
 </project>

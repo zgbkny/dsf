@@ -9,5 +9,8 @@
     <module>dsf-common</module>
     <module>dsf-rpc</module>
     <module>dsf-config</module>
+    <module>dsf-server</module>
+    <module>dsf-client</module>
+    <module>dsf-net</module>
   </modules>
 </project>
