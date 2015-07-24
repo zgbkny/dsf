@@ -9,4 +9,5 @@
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
   <classpathentry kind="src" path="/dsf-client"/>
   <classpathentry kind="src" path="/dsf-server"/>
+  <classpathentry kind="src" path="/dsf-net"/>
 </classpath>

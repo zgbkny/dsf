@@ -8,4 +8,11 @@
   <artifactId>dsf-server</artifactId>
   <groupId>org.dsf.server</groupId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.dsf.net</groupId>
+  		<artifactId>dsf-net</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

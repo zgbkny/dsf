@@ -11,7 +11,7 @@ public class ServerTest {
 		dsfProviderBean.setTarget(new RemoteEcho());
 		dsfProviderBean.setServiceVersion("1.0.0");
 		
-		Server server =  new RPC.RPCServer();
+		Server server = new RPC.RPCServer();
 		server.register(dsfProviderBean);
 		server.start();
 	}

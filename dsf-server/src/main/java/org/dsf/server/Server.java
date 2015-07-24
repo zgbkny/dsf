@@ -5,5 +5,5 @@ public interface Server {
 	public void start();
 	public boolean isRunning();
 	public int getPort();
-	public void setHandler(ServerHandler handler);
+	public void setHandler(EventHandler handler);
 }

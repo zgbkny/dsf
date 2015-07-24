@@ -5,6 +5,7 @@
   <projects>
     <project>dsf-client</project>
     <project>dsf-server</project>
+    <project>dsf-net</project>
   </projects>
   <buildSpec>
     <buildCommand>
