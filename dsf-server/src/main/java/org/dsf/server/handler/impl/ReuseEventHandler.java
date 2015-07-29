@@ -15,6 +15,8 @@ import org.dsf.server.handler.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sun.nio.ch.DirectBuffer;
+
 /***
  * 
  * 处理TCP复用的逻辑, 主要功能是接收数据，并将一个包完整的接收下来，然后解析后传递给下一个Handler
@@ -46,14 +48,10 @@ public class ReuseEventHandler implements EventHandler {
 			return rc;
 		}
 		try {
-			System.out.println(buffer.position());
 			int i = sc.read((ByteBuffer) buffer);
-			System.out.println(i);
 			byte[] bytes = (byte [])buffer.array();
-			System.out.println(buffer.position());
-			String str = new String(bytes);
-			System.out.println(str.length());
-			System.out.println(str);
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,5 +73,56 @@ public class ReuseEventHandler implements EventHandler {
 			c.setContext(reuseContext);
 		}
 		return reuseContext;
+	}
+	
+	// 解析reuse包,只解析当前buffer中的内容
+	private int parseReuse(Connection c, Buffer buffer) {
+		ReuseContext reuseContext = (ReuseContext)c.getContext();
+		byte[] bytes = (byte[]) buffer.array();
+		
+		// 包长度解析
+		if (reuseContext.getState() < ReuseContext.STATE_DATA) {
+			// parse datalen
+			int index = byteFind(bytes, 0, buffer.position(), ReuseContext.CRLFCRLF);
+			if (index > 0) {
+			 	String dataLenStr = new String(bytes, 0, index);
+			 	reuseContext.setDataLen(Integer.parseInt(dataLenStr));
+			 	buffer.limit(buffer.position());
+			 	buffer.position(index + ReuseContext.CRLFCRLF.length);
+			 	
+			} else {
+				reuseContext.setState(ReuseContext.STATE_DATALEN);
+			}
+		}
+		
+		// 包体统计
+		if (reuseContext.getState() == ReuseContext.STATE_DATA) {
+			
+		}
+		
+		return ReuseContext.STATE_DONE;
+	}
+	
+	// 在byte中查找相应的关键字
+	private int byteFind(byte[] bytes, int start, int end, byte[] flag) {
+		int index = -1, i = 0, j = 0;
+		if (bytes == null || flag == null 
+				|| start < 0 || end < 0 || start >= end
+				|| flag.length < 1 || bytes.length < flag.length) {
+			return index;
+		}
+		for (i = start, j = 0; i < end - flag.length && j < flag.length; i++) {
+			if (bytes[i] != flag[j]) {
+				j = 0;
+			} else {
+				j++;
+			}
+		}
+		if (j != flag.length) {
+			index = -1;
+		} else {
+			index = i - flag.length;
+		}
+		return index;
 	}
 }

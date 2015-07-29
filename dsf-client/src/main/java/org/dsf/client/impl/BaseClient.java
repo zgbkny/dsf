@@ -3,6 +3,7 @@ package org.dsf.client.impl;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -18,6 +19,7 @@ public class BaseClient implements Client {
 	private String host;
 	private int port;
 	private Socket socket;
+	private OutputStream os;
 	private ObjectOutputStream oos;
 	private ObjectInputStream ois;
 	
@@ -49,18 +51,19 @@ public class BaseClient implements Client {
 
 	public void init() throws UnknownHostException, IOException {
 		socket = new Socket(host, port);
-		oos = new ObjectOutputStream(socket.getOutputStream());
+		os = socket.getOutputStream();
+		//oos = new ObjectOutputStream(socket.getOutputStream());
 	}
 
 	public void invoke(Invocation invo) throws UnknownHostException, IOException, ClassNotFoundException {
 		init();
 		String data = "##clientid\r\nserverid\r\nother\r\n10942\r\n";
 		byte bb[] = data.getBytes();
-		System.out.println(bb.length);
-		//oos.writeBytes(data);
-		oos.write(bb);
+		System.out.println(data.length());
+		os.write(bb, 0, bb.length);
+		//oos.write(bb);
 		//oos.writeObject(invo);
-		oos.flush();
+		//oos.flush();
 		ois = new ObjectInputStream(socket.getInputStream());
 		
 		Invocation result = (Invocation) ois.readObject();

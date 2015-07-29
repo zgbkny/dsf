@@ -16,7 +16,10 @@ public class ClientTest {
 		dsfConsumerBean.setInterfaceName("com.dsf.test.Echo");
 		dsfConsumerBean.setVersion("1.0.0");
 		
-		Echo echo = RPC.getProxy(dsfConsumerBean, "127.0.0.1", 20382);
+		Echo echo = RPC.getProxy(dsfConsumerBean, "127.0.0.1", 2038   
+		
+		
+		  2);
 		
 		System.out.println(echo.echo("hello,hello"));
 		System.out.println(echo.echo("hellow,rod"));
@@ -28,8 +31,10 @@ public class ClientTest {
 		DsfConsumerBean dsfConsumerBean = new DsfConsumerBean();
 		dsfConsumerBean.setInterfaceName("com.dsf.test.Echo");
 		dsfConsumerBean.setVersion("1.0.0");
+		String str =  "我";
+		System.out.println(str.getBytes().length);
 		
-		Echo echo = BaseClient.getProxy(dsfConsumerBean, "127.0.0.1", 20382);
+		Echo echo = BaseClient.getProxy(dsfConsumerBean, "localhost", 9000);
 		
 		System.out.println(echo.echo("hello,hello"));
 		System.out.println(echo.echo("hellow,rod"));
