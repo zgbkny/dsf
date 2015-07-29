@@ -9,7 +9,7 @@ public class Notifier {
 	
 	
 	public static Notifier getNotifier() {
-		return null;
+		return new Notifier();
 	}
 	
 	public void fireOnAccept() {

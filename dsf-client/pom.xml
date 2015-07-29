@@ -8,4 +8,11 @@
   <artifactId>dsf-client</artifactId>
   <groupId>org.dsf.client</groupId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.dsf.common</groupId>
+  		<artifactId>dsf-common</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -17,7 +18,7 @@ import java.util.TreeMap;
 import org.dsf.net.Connection;
 import org.dsf.server.Notifier;
 import org.dsf.server.Server;
-import org.dsf.server.EventHandler;
+import org.dsf.server.handler.EventHandler;
 
 
 public class BaseServer implements Server, Runnable{
@@ -68,11 +69,6 @@ public class BaseServer implements Server, Runnable{
 
 	private Map<String ,Object> serviceEngine = new HashMap<String, Object>();
 
-	
-	public void start() {
-		
-	}
-
 	public void stop() {
 		this.setRuning(false);
 	}
@@ -81,12 +77,18 @@ public class BaseServer implements Server, Runnable{
 		return isRuning;
 	}
 
-	public void setHandler(EventHandler handler) {
+	public void setHandler(EventHandler eventHandler) {
 		// TODO Auto-generated method stub
-		
+		this.eventHandler = eventHandler;
 	}
 	
 	public void run() {
+		try {
+			init();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int num = 0;
 		while (true) {
 			try {
@@ -106,8 +108,9 @@ public class BaseServer implements Server, Runnable{
 						if ((key.readyOps() & SelectionKey.OP_READ) == SelectionKey.OP_READ) {
 							handleRead(key);
 						}
+						
 						// 处理write事件
-						if ((key.readyOps() & SelectionKey.OP_WRITE) == SelectionKey.OP_WRITE) {
+						if (key.isValid() && (key.readyOps() & SelectionKey.OP_WRITE) == SelectionKey.OP_WRITE) {
 							handleWrite(key);
 						}
 					}
@@ -126,19 +129,28 @@ public class BaseServer implements Server, Runnable{
 	private void handleAccept(SelectionKey key) {
 		ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
 		notifier.fireOnAccept();
+		int rc = EventHandler.DEL;
 		
 		SocketChannel sc = null;
 		try {
 			sc = ssc.accept();
 			sc.configureBlocking(false);
 			Connection c = new Connection();
-			c.setSc(sc);
-			// 给key添加关联的对象，用于再次回调时直接取出使用
-			key.attach(c);
-			eventHandler.handleAccept(c);	
+			c.setSocketChannel(sc);
 			
-			// 注册读操作,以进行下一步的读操作
-	        sc.register(selector,  SelectionKey.OP_READ, c);
+			rc = eventHandler.handleAccept(c);	
+			switch(rc) {
+			case EventHandler.ADD:
+				// 注册读操作,以进行下一步的读操作
+		        sc.register(selector,  SelectionKey.OP_READ, c);
+				break;
+			case EventHandler.DEL:
+				// 该Key是监听端口对应的key
+				//key.cancel();
+				break;
+			}
+				
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,14 +159,35 @@ public class BaseServer implements Server, Runnable{
 	}
 	
 	private void handleRead(SelectionKey key) {
+		int rc = EventHandler.DEL;
 		SocketChannel sc = (SocketChannel) key.channel();
 		notifier.fireOnRead();
-		eventHandler.handleRead((Connection)key.attachment());
+		rc = eventHandler.handleRead((Connection)key.attachment());
+		switch(rc) {
+		case EventHandler.ADD:
+			// 注册读操作,以进行下一步的读操作
+	        try {
+				sc.register(selector,  SelectionKey.OP_READ, key.attachment());
+			} catch (ClosedChannelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case EventHandler.DEL:
+			key.cancel();
+			break;
+		}
 	}
 	
 	private void handleWrite(SelectionKey key) {
 		SocketChannel sc = (SocketChannel) key.channel();
 		notifier.fireOnWrite();
 		eventHandler.handleWrite((Connection)key.attachment());
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
 	}
 }

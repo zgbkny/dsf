@@ -4,6 +4,7 @@
   <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects>
     <project>dsf-client</project>
+    <project>dsf-common</project>
     <project>dsf-server</project>
     <project>dsf-net</project>
   </projects>

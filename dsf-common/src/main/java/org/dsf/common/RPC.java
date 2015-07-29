@@ -13,25 +13,6 @@ import org.dsf.common.support.Server;
 
 
 public class RPC {
-	public static <T> T getProxy(DsfConsumerBean dsfConsumerBean,String host,int port) throws ClassNotFoundException {
-		
-		final Client client = new Client(host,port);
-		final Class clazz = Class.forName(dsfConsumerBean.getInterfaceName());
-		InvocationHandler handler = new InvocationHandler() {
-			@Override
-			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-				Invocation invo = new Invocation();
-				invo.setInterfaces(clazz);
-				invo.setMethod(new org.dsf.common.protocol.Method(method.getName(),method.getParameterTypes()));
-				invo.setParams(args);
-				client.invoke(invo);
-				return invo.getResult();
-			}
-		};
-		T t = (T) Proxy.newProxyInstance(RPC.class.getClassLoader(), new Class[] {clazz}, handler);
-		return t;
-	}
-	
 	
 	public static class RPCServer implements Server{
 		private int port = 20382;

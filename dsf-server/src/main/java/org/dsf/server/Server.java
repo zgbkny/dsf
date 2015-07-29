@@ -1,5 +1,7 @@
 package org.dsf.server;
 
+import org.dsf.server.handler.EventHandler;
+
 public interface Server {
 	public void stop();
 	public void start();

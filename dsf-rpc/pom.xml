@@ -32,5 +32,10 @@
     	<artifactId>dsf-net</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+    	<groupId>org.dsf.common</groupId>
+    	<artifactId>dsf-common</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>

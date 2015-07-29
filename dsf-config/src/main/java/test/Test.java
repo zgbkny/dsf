@@ -1,4 +1,4 @@
-package org.dsf.test;
+package test;
 
 import org.dsf.client.*;
 import org.dsf.server.*;
