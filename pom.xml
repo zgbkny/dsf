@@ -5,6 +5,24 @@
   <artifactId>dsf</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.javadocx</groupId>
+        <artifactId>javadocx</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <configuration>
+          <ibatisResource>ibatis.properties</ibatisResource>
+          <javadocxResource>javadocx.properties</javadocxResource>
+        </configuration>
+        <goals>
+        <goal>gen</goal>
+        </goals>
+      </plugin>
+    </plugins>
+  </build>
+  
   <modules>
     <module>dsf-common</module>
     <module>dsf-rpc</module>
@@ -13,4 +31,6 @@
     <module>dsf-client</module>
     <module>dsf-net</module>
   </modules>
+  
+  
 </project>

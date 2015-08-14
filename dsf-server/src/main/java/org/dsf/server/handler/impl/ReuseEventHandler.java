@@ -87,8 +87,11 @@ public class ReuseEventHandler implements EventHandler {
 			if (index > 0) {
 			 	String dataLenStr = new String(bytes, 0, index);
 			 	reuseContext.setDataLen(Integer.parseInt(dataLenStr));
+			 	reuseContext.setLeftBodyLen(reuseContext.getDataLen());
 			 	buffer.limit(buffer.position());
 			 	buffer.position(index + ReuseContext.CRLFCRLF.length);
+			 	reuseContext.setBodyStart(buffer.position());
+			 	reuseContext.setLeftBodyLen(reuseContext.getLeftBodyLen() - (buffer.limit() - buffer.position()));
 			 	
 			} else {
 				reuseContext.setState(ReuseContext.STATE_DATALEN);

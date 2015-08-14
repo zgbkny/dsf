@@ -38,6 +38,9 @@ public class ReuseContext {
 	
 	private int  			state; 			// 当前解析的状态
 	
+	private int 			leftBodyLen;	// 剩余包体的长度
+	private int 			bodyStart; 		// 包体开始的偏移量
+	
 	
 	public ReuseContext() {
 		state = STATE_INIT;
@@ -83,4 +86,22 @@ public class ReuseContext {
 	public int getState() {
 		return state;
 	}
+
+	public int getLeftBodyLen() {
+		return leftBodyLen;
+	}
+
+	public void setLeftBodyLen(int leftBodyLen) {
+		this.leftBodyLen = leftBodyLen;
+	}
+
+	public int getBodyStart() {
+		return bodyStart;
+	}
+
+	public void setBodyStart(int bodyStart) {
+		this.bodyStart = bodyStart;
+	}
+	
+	
 }
