@@ -4,8 +4,8 @@ package org.dsf.net;
  * 用于tcp复用的session层
  * @author william.ww
  * 
- * 包结构：datalen\r\n\r\nclientId\r\nserverId\r\n扩展\r\ndata
- * 说明：datalen，表示的是整个数据包体的长度，可加密，如果包体加密，那么就表示整个数据
+ * @包结构：数据长度\r\n\r\n数据   --> datalen\r\n\r\nclientId\r\nserverId\r\n扩展\r\ndata
+ * @说明：datalen，表示的是整个数据包体的长度，可加密，如果包体加密，那么就表示整个数据
  *	   clientId\r\nserverId\r\n扩展\r\ndata也可加密，但这一部分得作为整体加密
  * 	
  */

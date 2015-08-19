@@ -31,6 +31,5 @@
     <module>dsf-client</module>
     <module>dsf-net</module>
   </modules>
-  
-  
+
 </project>

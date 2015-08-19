@@ -7,5 +7,6 @@
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="src" path="/dsf-net"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-all/5.0.0.Alpha2/netty-all-5.0.0.Alpha2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar"/>
 </classpath>

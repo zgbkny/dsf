@@ -9,6 +9,7 @@
   <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
   <classpathentry kind="src" path="/dsf-client"/>
   <classpathentry kind="src" path="/dsf-common"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-all/4.0.30.Final/netty-all-4.0.30.Final.jar"/>
   <classpathentry kind="src" path="/dsf-server"/>
   <classpathentry kind="src" path="/dsf-net"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar"/>

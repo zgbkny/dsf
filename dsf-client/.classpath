@@ -7,6 +7,5 @@
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="src" path="/dsf-common"/>
-  <classpathentry kind="var" path="M2_REPO/com/taobao/hjtestsupport/hjtesteasyrun/0.0.4-SNAPSHOT/hjtesteasyrun-0.0.4-SNAPSHOT.jar"/>
-  <classpathentry kind="lib" path="C:/Program Files/Java/jdk1.6.0/lib/tools.jar"/>
+  <classpathentry kind="var" path="M2_REPO/io/netty/netty-all/4.0.30.Final/netty-all-4.0.30.Final.jar"/>
 </classpath>
